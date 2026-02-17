@@ -56,16 +56,16 @@ function ccs_medcity_enqueue_assets() {
 add_action( 'wp_enqueue_scripts', 'ccs_medcity_enqueue_assets' );
 
 /**
- * Add body class so Medcity layout (e.g. .wrapper) can be targeted if needed.
+ * Add body class for Medcity layout.
  */
 function ccs_medcity_body_class( $classes ) {
-	$classes[] = 'medcity-block-theme';
+	$classes[] = 'medcity-classic-theme';
 	return $classes;
 }
 add_filter( 'body_class', 'ccs_medcity_body_class' );
 
 /**
- * Theme supports expected by block themes and Medcity.
+ * Theme support and nav menus (classic theme, CTA-style).
  */
 function ccs_medcity_setup() {
 	add_theme_support( 'title-tag' );
@@ -77,6 +77,9 @@ function ccs_medcity_setup() {
 		'width'       => 260,
 		'flex-height' => true,
 		'flex-width'  => true,
+	) );
+	register_nav_menus( array(
+		'primary' => __( 'Primary menu', 'ccs-wp-theme' ),
 	) );
 }
 add_action( 'after_setup_theme', 'ccs_medcity_setup' );
