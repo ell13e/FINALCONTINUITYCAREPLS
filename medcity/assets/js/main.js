@@ -24,6 +24,9 @@
      
  ----------------------------*/
 
+(function ($) {
+    "use strict";
+
 $(function () {
 
     "use strict";
@@ -317,3 +320,5 @@ $(function () {
     // [Zoom Effect on Hovering] Find it in shop-single-product.html
     $(".zoomin").imagezoomsl();
 });
+
+})(jQuery);
