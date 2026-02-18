@@ -1,8 +1,8 @@
 <?php
 /**
- * Continuity Care Services (CCS) block theme — Medcity-based.
+ * Continuity Care Services (CCS) — classic theme.
  *
- * Enqueues Medcity template assets so the block theme keeps the Medcity look.
+ * Bootstrap: constants, inc/, enqueue, block placeholders.
  *
  * @package CCS_Theme
  * @since 1.0.0
@@ -12,86 +12,71 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'CCS_MEDCITY_VERSION', '1.0.0' );
-define( 'CCS_MEDCITY_DIR', get_template_directory() );
-define( 'CCS_MEDCITY_URI', get_template_directory_uri() );
+define( 'CCS_THEME_VERSION', '1.0.0' );
+define( 'CCS_THEME_DIR', get_template_directory() );
+define( 'CCS_THEME_URI', get_template_directory_uri() );
+
+require_once CCS_THEME_DIR . '/inc/theme-setup.php';
+require_once CCS_THEME_DIR . '/inc/theme-helpers.php';
+require_once CCS_THEME_DIR . '/inc/customizer.php';
+require_once CCS_THEME_DIR . '/inc/block-patterns.php';
 
 /**
- * Enqueue Medcity styles and scripts.
+ * Enqueue global styles and scripts (CCS handles).
  */
-function ccs_medcity_enqueue_assets() {
-	$ver = CCS_MEDCITY_VERSION;
-	$uri = CCS_MEDCITY_URI;
+function ccs_enqueue_assets() {
+	$ver = CCS_THEME_VERSION;
+	$uri = CCS_THEME_URI;
 
-	// Medcity CSS (order matters: libraries then style).
 	wp_enqueue_style(
-		'medcity-libraries',
+		'ccs-libraries',
 		$uri . '/assets/css/libraries.css',
 		array(),
 		$ver
 	);
 	wp_enqueue_style(
-		'medcity-style',
+		'ccs-style',
 		$uri . '/assets/css/style.css',
-		array( 'medcity-libraries' ),
+		array( 'ccs-libraries' ),
 		$ver
 	);
 
-	// Medcity JS (jQuery provided by WordPress).
 	wp_enqueue_script(
-		'medcity-plugins',
+		'ccs-plugins',
 		$uri . '/assets/js/plugins.js',
 		array( 'jquery' ),
 		$ver,
 		true
 	);
 	wp_enqueue_script(
-		'medcity-main',
+		'ccs-main',
 		$uri . '/assets/js/main.js',
-		array( 'jquery', 'medcity-plugins' ),
+		array( 'jquery', 'ccs-plugins' ),
 		$ver,
 		true
 	);
 }
-add_action( 'wp_enqueue_scripts', 'ccs_medcity_enqueue_assets' );
+add_action( 'wp_enqueue_scripts', 'ccs_enqueue_assets' );
 
 /**
- * Add body class for Medcity layout.
+ * Conditional scripts/styles per template (extend as needed).
  */
-function ccs_medcity_body_class( $classes ) {
-	$classes[] = 'medcity-classic-theme';
-	return $classes;
+function ccs_enqueue_page_scripts() {
+	// Example: enqueue contact form script only on contact page template.
+	// if ( is_page_template( 'page-templates/page-contact-us.php' ) ) {
+	//     wp_enqueue_script( 'ccs-contact', ccs_asset( 'js/contact.js' ), array( 'ccs-main' ), CCS_THEME_VERSION, true );
+	// }
 }
-add_filter( 'body_class', 'ccs_medcity_body_class' );
+add_action( 'wp_enqueue_scripts', 'ccs_enqueue_page_scripts' );
 
 /**
- * Theme support and nav menus (classic theme, CTA-style).
+ * Replace {{theme_uri}} and {{current_year}} in core/html blocks.
  */
-function ccs_medcity_setup() {
-	add_theme_support( 'title-tag' );
-	add_theme_support( 'post-thumbnails' );
-	add_theme_support( 'responsive-embeds' );
-	add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script' ) );
-	add_theme_support( 'custom-logo', array(
-		'height'      => 80,
-		'width'       => 260,
-		'flex-height' => true,
-		'flex-width'  => true,
-	) );
-	register_nav_menus( array(
-		'primary' => __( 'Primary menu', 'ccs-wp-theme' ),
-	) );
-}
-add_action( 'after_setup_theme', 'ccs_medcity_setup' );
-
-/**
- * Replace {{theme_uri}} placeholder in HTML blocks so template parts can reference theme assets.
- */
-function ccs_medcity_render_block_replace_placeholders( $block_content, $block ) {
+function ccs_render_block_replace_placeholders( $block_content, $block ) {
 	if ( isset( $block['blockName'] ) && $block['blockName'] === 'core/html' ) {
-		$block_content = str_replace( '{{theme_uri}}', esc_url( get_template_directory_uri() ), $block_content );
+		$block_content = str_replace( '{{theme_uri}}', esc_url( CCS_THEME_URI ), $block_content );
 		$block_content = str_replace( '{{current_year}}', esc_html( (string) wp_date( 'Y' ) ), $block_content );
 	}
 	return $block_content;
 }
-add_filter( 'render_block', 'ccs_medcity_render_block_replace_placeholders', 10, 2 );
+add_filter( 'render_block', 'ccs_render_block_replace_placeholders', 10, 2 );
