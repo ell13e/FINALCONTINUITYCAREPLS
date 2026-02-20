@@ -14,8 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Register Service post type.
+ * Skipped when CCS theme is active: theme is the single source of truth for service CPT (see docs/CPT-ARCHITECTURE.md).
  */
 function ccs_register_service_post_type() {
+	if ( function_exists( 'get_template' ) && get_template() === 'ccs-theme' ) {
+		return;
+	}
+
 	$labels = array(
 		'name'               => __( 'Services', 'ccs-wp-theme' ),
 		'singular_name'      => __( 'Service', 'ccs-wp-theme' ),

@@ -1,6 +1,6 @@
 # CCS Brand Reference
 
-**Continuity Care Services** — Kent-based home care. Quick reference for contact details, social links, and brand colours.
+**Continuity of Care Services** — Kent-based home care. Quick reference for contact details, social links, and brand colours.
 
 ---
 
@@ -12,6 +12,7 @@
 | **Email** | office@continuitycareservices.co.uk |
 | **Address** | The Maidstone Studios, New Cut Road, Maidstone, Kent, ME14 5NZ |
 | **CQC registration** | 1-2624556588 (Rated: Good) |
+| **CQC profile URL** | https://www.cqc.org.uk/location/1-2624556588 |
 
 ---
 
@@ -29,7 +30,7 @@
 ## Website
 
 - **Live site (canonical):** https://www.continuitycareservices.co.uk
-- **Site title:** Continuity Care Services
+- **Site title:** Continuity of Care Services
 - **Tagline:** Your Team, Your Time, Your Life
 
 ---
