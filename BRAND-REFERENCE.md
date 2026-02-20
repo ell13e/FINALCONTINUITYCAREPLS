@@ -8,7 +8,7 @@
 
 | Item | Value |
 |------|--------|
-| **Phone** | 01622 689 047 |
+| **Phone** | 01622 809881 |
 | **Email** | office@continuitycareservices.co.uk |
 | **Address** | The Maidstone Studios, New Cut Road, Maidstone, Kent, ME14 5NZ |
 | **CQC registration** | 1-2624556588 (Rated: Good) |

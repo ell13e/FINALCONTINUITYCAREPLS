@@ -1,0 +1,10 @@
+---
+description: Fix root causes; avoid !important and overrides
+alwaysApply: true
+---
+
+# Fix the issue, don't paper over it
+
+- **Do not add `!important`** to win specificity. Fix the selector or cascade (specificity, source order, or move the rule) so the correct rule wins.
+- **Do not add overrides** (e.g. redefining vendor CSS variables or "override" layers) to force brand colours or behaviour. Fix the source: use our own variables/classes in the right place, or adjust load order and structure so the right values apply without redefining third-party tokens.
+- When something doesn't look or behave as intended, find why the wrong rule is winning and fix that (specificity, order, or the rule that should apply), rather than forcing the result with !important or override comments.

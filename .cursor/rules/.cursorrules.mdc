@@ -1,0 +1,23 @@
+## Stack
+- WordPress classic theme (no block editor, no FSE, no theme.json)
+- Custom Post Types (CPT) registered via functions.php
+- No Gutenberg blocks — use Classic Editor
+
+## WordPress rules
+- Register CPTs in functions.php using register_post_type()
+- Use template hierarchy for CPT templates (single-{post-type}.php, archive-{post-type}.php)
+- Enqueue scripts and styles properly via wp_enqueue_scripts hook
+- No page builders — custom page templates only
+- Custom meta boxes for CPT fields (see Meta boxes section)
+- Keep functions.php organised with clear sections (CPTs, enqueues, hooks, helpers)
+- Use get_template_part() for reusable template chunks
+- child theme safe — no direct parent theme edits
+
+## Meta boxes
+- No plugins for custom fields — write meta boxes from scratch
+- Register meta boxes using add_meta_box()
+- Save with sanitize_text_field() / wp_kses_post() depending on field type
+- Use nonce verification on every meta box save
+- Store with update_post_meta() / get_post_meta()
+- Group related fields into one meta box where it makes sense
+- No ACF, no Pods, no Toolset
